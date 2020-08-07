@@ -78,3 +78,21 @@ def generate_ssh_config():
 
     conf_content = lib.file.render_template(instance_list, "ssh_config.j2")
     lib.file.write_file(conf_content, os.path.expanduser("~/.ssh/config"))
+
+
+def get_regions():
+    ec2_client = profile.create_sesssion(client_name="ec2")
+    response = ec2_client.describe_regions()
+    role_list = []
+    for r in response["Regions"]:
+        role_list.append(r["RegionName"])
+
+    return role_list
+
+
+def validate_region(aws_region):
+    aws_regions = get_regions()
+    if aws_region not in aws_regions:
+        raise Exception(
+            f"{aws_region} in not a valid region. must be one of {aws_regions}"
+        )

@@ -169,5 +169,15 @@ def get_zone_records(output, id):
         print(r)
 
 
+@main.group()
+def config():
+    pass
+
+
+@config.command()
+def create_default():
+    lib.profile.create_default()
+
+
 if __name__ == "__main__":
     main()

@@ -6,6 +6,12 @@ from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 
 
+def create_dir(dir_path):
+    dir_path = os.path.expanduser(dir_path)
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
+
+
 def output_dir():
     print(sys.path[0])
     output_director = os.path.join(sys.path[0], "outputs")
